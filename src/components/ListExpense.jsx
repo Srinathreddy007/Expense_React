@@ -22,7 +22,9 @@ class ListExpense extends Component {
     
     componentDidMount()
     {
-        ExpenseService.getList().then((res)=>{
+      console.log(localStorage.getItem("userid"))
+        ExpenseService.getuserExpenses(localStorage.getItem("userId")).then((res)=>{
+          console.log(res.data)
             this.setState({
                 expense:res.data});
         });

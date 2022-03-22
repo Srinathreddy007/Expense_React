@@ -1,17 +1,17 @@
 import axios from 'axios';
-const EXPENSEURL='http://localhost:8080/api/v1/expenses';
-
+// const EXPENSEURL='https://1-dot-ecstatic-pod-341409.uc.r.appspot.com/api/v1/expenses';
+const EXPENSEURL='http://localhost:9091/api/v1/expenses';
 class ExpenseService
 {
-    getList()
+    getExpenses()
     {
         return axios.get(EXPENSEURL);
 
     }
-    createExpense(Expense)
-    {
-        return axios.post(EXPENSEURL, Expense);
-    }
+    // createExpense(Expense)
+    // {
+    //     return axios.post(EXPENSEURL, Expense);
+    // }
     // gettodobyId(id)
     // {
     //     return axios.get(EXPENSEURL+"/"+id)
@@ -19,6 +19,10 @@ class ExpenseService
     deleteExpense(id){
         return axios.delete(EXPENSEURL + '/' + id);
      }
-
+     getuserExpenses(userId)
+     {
+         return axios.get(EXPENSEURL+'/'+userId);
+ 
+     }
 }
 export default new ExpenseService();

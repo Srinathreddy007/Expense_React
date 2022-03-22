@@ -7,7 +7,9 @@ import "react-datepicker/dist/react-datepicker.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import AppNav from './AppNav';
+import Login from './Login';
 import Footer from './Footer';
+import App from '../App';
 class AddExpense extends Component {
     constructor(props)
     {
@@ -19,7 +21,8 @@ class AddExpense extends Component {
             category:'',
             amount:'',
             expensedate:new Date(),
-            currency:''
+            currency:'',
+           // userId:localStorage.getItem('userid')
 
         }
         this.saveExpense=this.saveExpense.bind(this);
@@ -31,19 +34,27 @@ class AddExpense extends Component {
     }
     saveExpense = (e)=>
     {
-        e.preventDefault();
-        let expense= {id:this.state.id,descript : this.state.descript,category: this.state.category,amount:this.state.amount,expensedate: this.state.expensedate,currency: this.state.currency };
+      e.preventDefault();
+        let expense= {id:this.state.id,descript : this.state.descript,category: this.state.category,amount:this.state.amount,expensedate: this.state.expensedate,currency: this.state.currency ,userId:localStorage.getItem('userId')};
         console.log('list=>'+JSON.stringify(expense));
-        
-        ExpenseService.createExpense(expense).then
-          (res=>
-            {
-              this.props.history.push('/list-expense');
-               console.log("success")
-            }
-            ).catch((error) => {
-              console.log("Error:", error);
-            });
+         let url="http://localhost:9091/api/v1/expenses";
+         fetch(url,{
+            method:'POST',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            },
+            body:JSON.stringify(expense)
+        }).then((result)=>{
+       
+            result.json().then((res)=>{
+              this.props.history.push("/list-expense");
+                console.warn('res',res)
+                
+                
+                
+                //this.props.history.push("/list-expense");
+             })
+        })
             
     }
   
@@ -77,8 +88,10 @@ class AddExpense extends Component {
 
     render() {
         return (
+          
+           
             <div className='container'>
-              <AppNav></AppNav>
+            <AppNav></AppNav>
              <div className="row"> 
                 <div className="card col-md6 offset-md-3 offset-md-3">
                     <h3 className='text-center'>Add Expenses</h3>
@@ -123,6 +136,7 @@ class AddExpense extends Component {
               </div>
            
             </div>
+           
           
         );
     }

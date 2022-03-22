@@ -10,8 +10,11 @@ class AppNav extends Component {
             <Navbar color="dark" dark  expand="md">
               <NavbarBrand href="/">Expense Tracker Application</NavbarBrand>
                 <Nav className="ml-auto" navbar>
-                  <NavItem>
+                  {/* <NavItem>
                     <NavLink href="/">Home</NavLink>
+                  </NavItem> */}
+                  <NavItem>
+                    <NavLink href="/welcome">Home</NavLink>
                   </NavItem>
                   <NavItem>
                     <NavLink href="/list-expense">View Expenses</NavLink>

@@ -8,6 +8,7 @@ import AddExpense from './components/AddExpense';
 import Welcome from './components/Welcome';
 import Register from './components/Register';
 import Login from './components/Login';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/welcome"  component={Welcome}></Route>
         <Route path="/list-expense"  component={ListExpense}></Route>
         <Route path="/add-expense"  component={AddExpense}></Route>
+        <Route path="/logout"  component={Logout}></Route>
         </Switch>
         </Router>
       {/* <Router>

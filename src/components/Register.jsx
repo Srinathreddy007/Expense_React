@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+// import index.css from 
 
 class Register extends Component {
     constructor(props)
@@ -11,14 +11,21 @@ class Register extends Component {
             lastName:'',
             email:'',
             password:'',
-            sex:''
+            sex:'',
+            message:''
         }
-        this.changeFirstnameHandler=this.changeFirstnameHandler.bind(this);
-        this.changeLastnameHandler=this.changeLastnameHandler.bind(this);
-        this.changeEmailHandler=this.changeEmailHandler.bind(this);
-        this.changePasswordHandler=this.changePasswordHandler.bind(this);
-        this.changeSexHandler=this.changeSexHandler.bind(this);
-        this.register=this.register.bind(this);
+        // this.changeFirstnameHandler=this.changeFirstnameHandler.bind(this);
+        // this.changeLastnameHandler=this.changeLastnameHandler.bind(this);
+        // this.changeEmailHandler=this.changeEmailHandler.bind(this);
+        // this.changePasswordHandler=this.changePasswordHandler.bind(this);
+        // this.changeSexHandler=this.changeSexHandler.bind(this);
+        // this.register=this.register.bind(this);
+        // this.messageHandler=this.messageHandler.bind(this);
+
+    }
+    messageHandler=()=>
+    {
+        this.setState({message:'Email already exist..!! Please try a new Email ID....!!!!'})
 
     }
     register = (e)=>
@@ -56,6 +63,7 @@ class Register extends Component {
             //   };
             let url = "http://localhost:8080/api/v1/register";
         // let data = this.state;
+       // let url='https://user-dot-ecstatic-pod-341409.uc.r.appspot.com/api/v1/register';
 
         fetch(url,{
             method:'POST',
@@ -66,10 +74,20 @@ class Register extends Component {
         }).then((result)=>{
             
             result.json().then((res)=>{
-                this.props.history.push("/login");
-                console.warn('res',res)
+                //this.props.history.push("/login");
+                console.warn('res',res);
+                if(res.status===500)
+                 {
+            this.messageHandler();
+                  }
+              else
+              {
+                 this.props.history.push("/login");
+              }
+
              })
-        })
+        });
+        
     }
     
     changeFirstnameHandler=(event)=>
@@ -111,37 +129,37 @@ class Register extends Component {
                 <form class="row g-3">
                 <div className='form-group'>
                         <label>First Name: </label>
-                        <input  name='firstName' value={this.state.firstName} 
+                        <input  name='firstName' title='firstName' value={this.state.firstName} 
                         onChange={this.changeFirstnameHandler}></input>
                         </div>
                         <div className='form-group'>
                         <label>Last Name: </label>
-                        <input name='lastName' value={this.state.lastName} 
+                        <input name='lastName' title='lastName' value={this.state.lastName} 
                           onChange={this.changeLastnameHandler}></input>
                           </div>
                           <div className='form-group'>
                         <label>Email : </label>
-                        <input name='email' value={this.state.email} 
+                        <input name='email'title='email' value={this.state.email} 
                           onChange={this.changeEmailHandler}></input>
                           </div>
                           <div>
                           <label>Password : </label>
 
-                        <input type="password" name='password' value={this.state.password} 
+                        <input type="password" name='password' title='password' value={this.state.password} 
                           onChange={this.changePasswordHandler}></input>
                           </div>
                           <div>
                           <label>Sex : </label>
-                        <input name='sex' value={this.state.sex} 
+                        <input name='sex' title='sex' value={this.state.sex} 
                           onChange={this.changeSexHandler}></input>
                         </div>
                         
                     < div >
                         
-                   <button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
-                    <button type="submit" className="btn btn-danger" onClick={this.cancel.bind(this)}>Cancel</button>
+                   <button type="submit" title='register' className="btn btn-primary" onClick={this.register}>Register</button>
+                    <button type="submit" title='cancel' className="btn btn-danger" onClick={this.cancel.bind(this)}>Cancel</button>
                     </div>
-                    
+                    <div className="message" >{this.state.message}</div>
                 </form>
                 </div>
                 </div>

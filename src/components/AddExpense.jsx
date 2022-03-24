@@ -25,19 +25,15 @@ class AddExpense extends Component {
            // userId:localStorage.getItem('userid')
 
         }
-        this.saveExpense=this.saveExpense.bind(this);
-        this.changeDescritpionHandler=this.changeDescritpionHandler.bind(this);
-        this.changeCategoryHandler=this.changeCategoryHandler.bind(this);
-        this.changeDateExpenseHandler=this.changeDateExpenseHandler.bind(this);
-        this.changeCurrencyHandler=this.changeCurrencyHandler.bind(this);
-        this.changeAmountHandler=this.changeAmountHandler.bind(this);
+
     }
-    saveExpense = (e)=>
+    saveExpense  =(e)=>
     {
       e.preventDefault();
         let expense= {id:this.state.id,descript : this.state.descript,category: this.state.category,amount:this.state.amount,expensedate: this.state.expensedate,currency: this.state.currency ,userId:localStorage.getItem('userId')};
         console.log('list=>'+JSON.stringify(expense));
          let url="http://localhost:9091/api/v1/expenses";
+        // let url='https://expense-dot-ecstatic-pod-341409.uc.r.appspot.com/api/v1/expenses';
          fetch(url,{
             method:'POST',
             headers: {
@@ -102,33 +98,33 @@ class AddExpense extends Component {
                           
                         <div className='form-group'>
                         <label>Description: </label>
-                        <input  name='descript' value={this.state.descript} 
+                        <input  name='descript' title='descript' value={this.state.descript} 
                         onChange={this.changeDescritpionHandler}></input>
                         </div>
                         <div className='form-group'>
                         <label>Category : </label>
-                        <input name='category' value={this.state.category} 
+                        <input name='category' title='category' value={this.state.category} 
                           onChange={this.changeCategoryHandler}></input>
                           </div>
                           <div className='form-group'>
                         <label>Amount Spent : </label>
-                        <input name='amount' value={this.state.amount} 
+                        <input name='amount' title='amount' value={this.state.amount} 
                           onChange={this.changeAmountHandler}></input>
                           </div>
                           <div>
                           <label>Date of Expense : </label>
 
-                        <input name='expensedate' value={this.state.dateexpense} 
+                        <input name='expensedate' title='expense' value={this.state.dateexpense} 
                           onChange={this.changeDateExpenseHandler}></input>
                           </div>
                           <div>
                           <label>Currency : </label>
-                        <input name='currency' value={this.state.currency} 
+                        <input name='currency' title='currency' value={this.state.currency} 
                           onChange={this.changeCurrencyHandler}></input>
                         </div>
                         
-                        <button className='btn btn-success' onClick={this.saveExpense}>Save</button>
-                        <button className='btn btn-danger' onClick={this.cancel.bind(this)}>Cancel</button>
+                        <button className='btn btn-success' title='save' onClick={this.saveExpense}>Save</button>
+                        <button className='btn btn-danger' title='cancel' onClick={this.cancel.bind(this)}>Cancel</button>
 
                         </form>
                         </div>

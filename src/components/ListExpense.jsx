@@ -23,24 +23,83 @@ class ListExpense extends Component {
     componentDidMount()
     {
       console.log(localStorage.getItem("userid"))
-        ExpenseService.getuserExpenses(localStorage.getItem("userId")).then((res)=>{
-          console.log(res.data)
-            this.setState({
-                expense:res.data});
-        });
+      // let url='https://expense-dot-ecstatic-pod-341409.uc.r.appspot.com/api/v1/expenses/'+localStorage.getItem("userId");
+         let url='http://localhost:9091/api/v1/expenses/'+localStorage.getItem("userId");
+   // console.log(url);
+
+        // ExpenseService.getuserExpenses(localStorage.getItem("userId")).then((res)=>{
+        //   console.log(res.data)
+        //     this.setState({
+        //         expense:res.data});
+        // });
+        // user=localStorage.getItem("userid")
+        fetch(url).then((res)=>res.json())
+        .then((data)=>{console.log("mydata",data)
+        this.setState({expense:data});
+      
+      });
+        //  .then((result)=>{result
+        //   console.log(res) 
+        //  );
+          // then((result)=>{
+            
+          //   console.log('result',result);
+          //    result.
+          //    console.log("resultjson",result.json());
+             //.then((res)=>{
+            //   this.setState({
+            //           expense:res.data});
+            //     //console.warn('res',res);
+            //  })
+            
+            // });
+        
     }
     addExpense()
     {
       this.props.history.push("/add-expense");
 
     }
-    deleteExpense(id){
-    ExpenseService.deleteExpense(id).then( res => {
-        this.setState({expense: this.state.expense.filter(expenses => expenses.id !== id)});
-    });
+    // deleteExpense(id){
+    // ExpenseService.deleteExpense(id).then( res => {
+    //     this.setState({expense: this.state.expense.filter(expenses => expenses.id !== id)});
+    // });
+    deleteExpense(id)
+    {
+
+       let url='http://localhost:9091/api/v1/expenses/'+id;
+     // let url='https://expense-dot-ecstatic-pod-341409.uc.r.appspot.com/api/v1/expenses/'+id;
+      console.log(url);
+    
+      // fetch(url, {
+      //   method: 'DELETE',
+      // })
+      // .then(res => {
+      //   console.log('response',res.json())
+      //   return res.json();
+      // }).then((data)=>{
+      //   console.log('delete',data);
+      //   this.setState({expense:this.state.expense.filter(expenses=>expenses.id!=-id)});
+      // })
+      //   //     this.setState({expense: this.state.expense.filter(expenses => expenses.id !== id)});
+        // });
+        fetch(url,
+          {
+            method:'DELETE',
+          }
+          
+          )
+        .then((res)=>{console.log("mydata",res)
+        this.setState({expense:this.state.expense.filter(expenses => expenses.id !== id)});
+      
+      });
+
 
 
     }
+
+
+    // }
     render() {
         return (
             <div>
@@ -57,8 +116,10 @@ class ListExpense extends Component {
                     <th>Description</th>
                     <th>Category</th>
                     <th>Amount Spent</th>
-                    <th>Date of Expense</th>
                     <th>Currency</th>
+                    <th>Date of Expense</th>
+                    
+                   
                     <th>Action</th>
       
                   </tr>
@@ -71,12 +132,16 @@ class ListExpense extends Component {
                     
                     <td>{expenses.descript}</td>
                     <td>{expenses.category}</td>
-                    <td>{expenses.amount.toString()}</td>
-                    <td>{expenses.expensedate.toString()} </td>
+                    <td>{(expenses.amount.toString())}</td>
                     <td>{expenses.currency}</td>
+                    <td>{expenses.expensedate.toString().slice(0,10)} </td>
+                    
+                    
+                    
+                    
                     
                      <td>
-                      <button onClick={()=>this.deleteExpense(expenses.id)} className='button button-info'>Delete</button>
+                      <button title='del' onClick={()=>this.deleteExpense(expenses.id)} className='button button-info'>Delete</button>
                      </td>
                     
                   </tr>

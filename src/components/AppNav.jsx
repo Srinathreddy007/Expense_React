@@ -3,7 +3,20 @@ import {Nav,Navbar,NavItem,NavbarBrand, NavLink} from 'reactstrap';
 
 
 class AppNav extends Component {
-    state = {  }
+  constructor(props)
+  {
+    super(props);
+
+    // state = {  }
+    // this.clickHandler=this.clickHandler.bind(this);
+
+  }
+  // clickHandler=(e)=>
+  // {e.preventDefault();
+  //   this.props.history.push('/login');
+  //   localStorage.removeItem('userId');
+  // }
+  
     render() {
         return (
           <div>
@@ -22,11 +35,14 @@ class AppNav extends Component {
                   <NavItem>
                     <NavLink href="/add-expense">Add Expenses</NavLink>
                   </NavItem>
-                  
+                  <NavItem>
+                    <NavLink href="/logout">Logout</NavLink>
+                  </NavItem>
                 
                 </Nav>
-          
+                {/* <button onClick={this.clickHandler}>Logout</button> */}
             </Navbar>
+           
           </div>
         );
       }
